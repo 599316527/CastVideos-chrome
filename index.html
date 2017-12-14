@@ -17,15 +17,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>Cast Videos: Google Cast Chrome Sender SDK Demo App</title>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P3QCM45');</script>
+<!-- End Google Tag Manager -->
 <link rel="icon" type="image/x-icon" href="imagefiles/favicon.ico" />
 <link rel="icon" type="image/png" href="imagefiles/favicon-16x16.png" />
 <link rel="icon" type="image/png" href="imagefiles/favicon-32x32.png" />
 <link rel="icon" type="image/png" href="imagefiles/favicon-64x64.png" />
 <link rel="stylesheet" type="text/css" href="css/CastVideos.css">
 <link href='//fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic-ext,greek-ext,latin-ext' rel='stylesheet' type='text/css'>
+<style type="text/css">
+.clearfix {
+  clear: both;
+}
+  .user-video-url {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    font-size: 20px;
+    background: pink;
+    padding: 10px;
+  }
+  #user-url {
+    flex-grow: 2;
+    font-size: 24px;
+  }
+  .user-video-url input,
+  .user-video-url button {
+    font-size: 24px;
+    border: 1px solid black;
+  }
+</style>
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3QCM45"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
       <div id="top_header">
         <div id="logo"></div>
       </div>
@@ -65,8 +101,13 @@
         <div id="media_desc">
         </div>
       </div>
-
+      <div class="clearfix"></div>
       <div id="carousel">
+        <div class="user-video-url">
+          <span>Custom: </span>
+          <input type="url" name="" id="user-url">
+          <button id="user-play">play</button>
+        </div>
       </div>
 
       <div id="footer">
@@ -83,7 +124,23 @@
                 castPlayer.initializeCastPlayer();
             }
         };
+        var videos = mediaJSON['categories'][0]['videos']
+        var customVideo = {
+            'description' : "",
+            'sources' : [],
+            'subtitle' : 'By you',
+            'thumb' : 'images/BigBuckBunny.jpg',
+            'title' : ''
+        }
+        videos[videos.length] = customVideo
+        document.getElementById('user-play').addEventListener('click', function () {
+          var url = document.getElementById('user-url').value.trim()
+          if (!url) return
+          customVideo.sources[0] = url
+          customVideo.title = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
+          castPlayer.selectMedia(videos.length - 1)
+        })
       </script>
-      <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </body>
 </html>
