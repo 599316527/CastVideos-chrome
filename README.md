@@ -1,5 +1,17 @@
-# CastVideos-chrome (reference Chrome sender app)
+CastVideos-chrome
 ===============================
+
+Just wanna cast videos which are provided through HTTP by my NAS to Chromecast.
+
+## Modified from googlecast's demo
+
+* Remove the "sample" watermark by using default app id
+* Insert a video url field before thumbnails to load my own videos
+* [DEFECT] Don't support mobile devices because styles of the demo sucks and are hard to udpate
+
+[Enjoy It](https://599316527.github.io/CastVideos-chrome/)
+
+---------------------
 
 This Google Cast demo app shows how to cast videos from a Chrome browser using Cast Chrome Sender SDK. It serves to demonstrate how to write a HTML5/Javascript Cast sender app that is fully compliant with the Design Checklist.
 
